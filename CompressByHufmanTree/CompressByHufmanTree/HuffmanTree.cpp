@@ -3,7 +3,46 @@
 
 void HuffmanTree::Select(int cur, int & r1, int & r2)
 {
-
+	int max1, max2;
+	//初始化max1,max2
+	for (int i = 1; i <= cur; i++)
+	{
+		if (nodes[i].parent != 0)
+		{
+			max1 = nodes[i].weight;
+			max2 = nodes[i].weight;
+			r1 = i;
+			r2 = i;
+		}
+	}
+	//找到最大值，并将其标号赋值给r1
+	for (int i = 1; i <= cur; i++)
+	{
+		if(nodes[i].parent == 0)
+		{
+			if (max1 <= nodes[i].weight)
+			{
+				max1 = nodes[i].weight;
+				r1 = i;
+			}
+		}
+	}
+	//找到次大或最大值，将其标号赋值给r2
+	for (int i = 1; i <= cur; i++)
+	{
+		if (nodes[i].parent == 0)
+		{
+			if (i == r1)
+			{
+				continue;
+			}
+			if (max2 <= nodes[i].weight)
+			{
+				max2 = nodes[i].weight;
+				r2 = i;
+			}
+		}
+	}
 }
 
 void HuffmanTree::CreatHuffmanTree(char ch[], int w[], int n)
@@ -69,8 +108,8 @@ string HuffmanTree::Encode(char ch)
 string HuffmanTree::DeCode(string strCode)
 {
 	string charlist;  //编码前的字符序列
-	
-	for (int pos = 0; pos < strCode.length(); pos++)
+	int strCodeLength = strCode.length();
+	for (int pos = 0; pos < strCodeLength; pos++)
 	{
 		if (strCode[pos] == '0') curPos = nodes[curPos].leftChild;
 		else curPos = nodes[curPos].rightChild;
