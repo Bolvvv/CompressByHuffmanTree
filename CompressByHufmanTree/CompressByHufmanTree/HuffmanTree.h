@@ -1,7 +1,6 @@
 #pragma once
 #include "stdafx.h"
 #include "node.h"
-#include <string>
 using namespace std;
 
 class HuffmanTree

@@ -1,15 +1,11 @@
 #include "stdafx.h"
 #include "node.h"
 
+
 HuffmanTreeNode::HuffmanTreeNode()
 {
-
-}
-
-HuffmanTreeNode::HuffmanTreeNode(int w, int p, int lChild, int rChild)
-{
-	weight = w;
-	parent = p;
-	leftChild = lChild;
-	rightChild = rChild;
+	parent = 0;
+	leftChild = 0;
+	rightChild = 0;
+	weight = 0;
 }

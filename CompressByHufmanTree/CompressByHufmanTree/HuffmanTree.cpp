@@ -7,12 +7,13 @@ void HuffmanTree::Select(int cur, int & r1, int & r2)
 	//初始化max1,max2
 	for (int i = 1; i <= cur; i++)
 	{
-		if (nodes[i].parent != 0)
+		if (nodes[i].parent == 0)
 		{
 			max1 = nodes[i].weight;
 			max2 = nodes[i].weight;
 			r1 = i;
 			r2 = i;
+			break;
 		}
 	}
 	//找到最大值，并将其标号赋值给r1
@@ -20,7 +21,7 @@ void HuffmanTree::Select(int cur, int & r1, int & r2)
 	{
 		if(nodes[i].parent == 0)
 		{
-			if (max1 <= nodes[i].weight)
+			if (max1 >= nodes[i].weight)
 			{
 				max1 = nodes[i].weight;
 				r1 = i;
@@ -36,7 +37,7 @@ void HuffmanTree::Select(int cur, int & r1, int & r2)
 			{
 				continue;
 			}
-			if (max2 <= nodes[i].weight)
+			if (max2 >= nodes[i].weight)
 			{
 				max2 = nodes[i].weight;
 				r2 = i;
@@ -116,7 +117,7 @@ string HuffmanTree::DeCode(string strCode)
 		if (nodes[curPos].leftChild == 0 && nodes[curPos].rightChild == 0)
 		{
 			int len = charlist.length() + 1;
-			charlist.insert(len, (char*) LeafChars[curPos]);   //出现一个莫名的问题...
+			charlist.insert(len, (const char*) LeafChars[curPos]);   //出现一个莫名的问题...
 		}
 	}
 	return charlist;
