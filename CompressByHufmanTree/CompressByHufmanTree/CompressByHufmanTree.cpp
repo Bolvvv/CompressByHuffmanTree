@@ -18,6 +18,16 @@ int main()
 
 	//½¨Ê÷
 	HuffmanTree tree(ch, weight, count);
+
+
+	//²âÊÔ
+	cout << "ÇëÊäÈëÒª±àÂëµÄ×Ö·û:" << endl;
+	char a;
+	string test;
+	cin >> a;
+	test = tree.Encode(a);
+	cout << test << endl;
+	system("PAUSE");
     return 0;
 }
 

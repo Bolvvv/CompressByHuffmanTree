@@ -3,47 +3,36 @@
 
 void HuffmanTree::Select(int cur, int & r1, int & r2)
 {
-	int max1, max2;
-	//初始化max1,max2
+	int min1 = 99999999999;//输入字符数量最多为此
+	int	min2 = 99999999999;
+	int middleVar = 0;
+	int middleI = 0;
 	for (int i = 1; i <= cur; i++)
 	{
 		if (nodes[i].parent == 0)
 		{
-			max1 = nodes[i].weight;
-			max2 = nodes[i].weight;
-			r1 = i;
-			r2 = i;
-			break;
-		}
-	}
-	//找到最大值，并将其标号赋值给r1
-	for (int i = 1; i <= cur; i++)
-	{
-		if(nodes[i].parent == 0)
-		{
-			if (max1 >= nodes[i].weight)
+			if (min1 >= nodes[i].weight)
 			{
-				max1 = nodes[i].weight;
+				min1 = nodes[i].weight;
 				r1 = i;
+				middleI = i;
 			}
 		}
 	}
-	//找到次大或最大值，将其标号赋值给r2
+	middleVar = min1;
+	nodes[middleI].weight = 99999999999;
 	for (int i = 1; i <= cur; i++)
 	{
 		if (nodes[i].parent == 0)
 		{
-			if (i == r1)
+			if (min2 >= nodes[i].weight)
 			{
-				continue;
-			}
-			if (max2 >= nodes[i].weight)
-			{
-				max2 = nodes[i].weight;
+				min2 = nodes[i].weight;
 				r2 = i;
 			}
 		}
 	}
+	nodes[middleI].weight = middleVar;
 }
 
 void HuffmanTree::CreatHuffmanTree(char ch[], int w[], int n)
@@ -51,8 +40,8 @@ void HuffmanTree::CreatHuffmanTree(char ch[], int w[], int n)
 	num = n;   //叶结点个数
 	int m = 2 * n - 1;  //结点个数
 	nodes = new HuffmanTreeNode [m + 1];  //申请空间
-	LeafChars = new char [n + 1];
-	LeafCharCodes = new string[n + 1];
+	LeafChars = new char [num + 1];
+	LeafCharCodes = new string[num + 1];
 
 	for (int pos = 1; pos <= n; pos++)
 	{   //将叶子结点信息存储
@@ -77,10 +66,19 @@ void HuffmanTree::CreatHuffmanTree(char ch[], int w[], int n)
 		{
 			//从叶子结点到根结点逆向求编码
 			if (nodes[parent].leftChild == child)
-				charCode.insert(1, "0");  //设置起始点为1的目的是为了将“倒叙编码”改为“逆序编码”
-			else charCode.insert(1, "1");
+				charCode = charCode + "0";
+			else charCode = charCode + "1";
 		}
-		LeafCharCodes[pos] = charCode;  //charCode中存储字符编码
+		int len = charCode.length();//求charCode的长度
+		string midChar = "00000000000000000000000000000000000000000000000";//作为中间变量来逆转charCode
+		for (int i = 0,m = len-1; i < len,m>=0; i++,m--)
+		{
+			midChar[i] = charCode[m];
+		}
+		for (int i = 0; i < len; i++)
+		{
+			LeafCharCodes[pos] = LeafCharCodes[pos]+midChar[i];  
+		}
 
 	}
 	curPos = m;        //译码时从根结点开始,m为根
