@@ -9,24 +9,21 @@
 
 int main()
 {
-	void getWord(int &count, int weight[], char ch[]);
-	//进行字符相关信息的初始化
 	int count = 0;//输入字符的种类数量
 	int weight[256] = {};//字符权值
 	char ch[256] = {};//字符信息
+	void getWord(int &count, int weight[], char ch[]);
+	//进行字符相关信息的初始化
 	getWord(count, weight, ch);
 
 	//建树
 	HuffmanTree tree(ch, weight, count);
-
-
-	//测试
-	cout << "请输入要编码的字符:" << endl;
-	char a;
-	string test;
-	cin >> a;
-	test = tree.Encode(a);
-	cout << test << endl;
+	cout << "请输入要译码的字符:" << endl;
+	string str;  //将要译码字符串
+	string str2;  //已经译码的字符串
+	cin >> str;
+	str2 = tree.DeCode(str);
+	cout << str2 << endl;
 	system("PAUSE");
     return 0;
 }
