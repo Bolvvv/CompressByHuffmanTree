@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "HuffmanTree.h"
 
-void HuffmanTree::Select(int cur, int & r2, int & r1)
+void HuffmanTree::Select(int cur, int & r1, int & r2)
 {
 	int min1 = 99999999999;//输入字符数量最多为此
 	int	min2 = 99999999999;
@@ -114,8 +114,8 @@ string HuffmanTree::DeCode(string strCode)
 		else curPos = nodes[curPos].rightChild;
 		if (nodes[curPos].leftChild == 0 && nodes[curPos].rightChild == 0)
 		{
-			charlist = charlist + LeafChars[curPos];
-			curPos = 2 * num - 1;//回到根
+			int len = charlist.length() + 1;
+			charlist.insert(len, (const char*) LeafChars[curPos]);   //出现一个莫名的问题...
 		}
 	}
 	return charlist;
