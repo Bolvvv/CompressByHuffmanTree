@@ -115,7 +115,9 @@ string HuffmanTree::DeCode(string strCode)
 		if (nodes[curPos].leftChild == 0 && nodes[curPos].rightChild == 0)
 		{
 			int len = charlist.length() + 1;
-			charlist.insert(len, (const char*) LeafChars[curPos]);   //出现一个莫名的问题...
+			char change = LeafChars[curPos];
+			charlist = charlist + change;
+			curPos = 2 * num - 1;
 		}
 	}
 	return charlist;
